@@ -4,6 +4,7 @@ readonly VERSION="0.1.0"
 
 show_banner() {
     echo "Linux Health Toolkit"
+    echo
 }
 
 show_version() {
@@ -23,8 +24,30 @@ Options:
 EOF
 }
 
+show_system_info() {
+    echo "System Information"
+    echo "------------------"
+
+    local hostname
+    hostname=$(hostname)
+
+    local kernel
+    kernel=$(uname -r)
+
+    local uptime
+    uptime=$(uptime -p)
+
+    local os
+    os=$(grep "^PRETTY_NAME=" /etc/os-release | cut -d '"' -f2)
+
+    printf "%-12s %s\n" "Hostname:" "$hostname"
+    printf "%-12s %s\n" "OS:" "$os"
+    printf "%-12s %s\n" "Kernel:" "$kernel"
+    printf "%-12s %s\n" "Uptime:" "$uptime"
+}
+
 run_assessment() {
-    echo "Running health assessment..."
+    show_system_info
 }
 
 main() {
