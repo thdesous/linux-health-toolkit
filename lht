@@ -184,6 +184,13 @@ show_disk_metrics() {
     printf "%-18s %s\n" "Disk Used:" "$used"
     printf "%-18s %s\n" "Disk Available:" "$available"
     printf "%-18s %s\n" "Disk Usage:" "$usage"
+
+    echo
+    echo "Mounted Filesystems"
+    echo "-------------------"
+
+    df -h --output=source,size,used,avail,pcent,target \
+    | grep -E '^Filesystem|^/dev/|^[A-Z]:\\'
 }
 
 show_top_processes() {
