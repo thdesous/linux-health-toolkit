@@ -123,6 +123,39 @@ show_memory_metrics() {
     printf "%-18s %s MB\n" "Memory Used:" "$used_mb"
     printf "%-18s %s MB\n" "Memory Available:" "$available_mb"
     printf "%-18s %s%%\n" "Memory Usage:" "$mem_usage"
+
+    echo
+    echo "Swap Metrics"
+    echo "--------------"
+
+    local swap_total
+    local swap_free
+    local swap_used
+    local swap_usage
+
+    swap_total=$(grep "^SwapTotal:" /proc/meminfo | awk '{print $2}')
+    swap_free=$(grep "^SwapFree:" /proc/meminfo | awk '{print $2}')
+
+    swap_used=$((swap_total - swap_free))
+
+    local swap_total_mb
+    local swap_used_mb
+    local swap_free_mb
+
+    swap_total_mb=$((swap_total / 1024))
+    swap_used_mb=$((swap_used / 1024))
+    swap_free_mb=$((swap_free / 1024))
+
+    if [ "$swap_total" -gt 0 ]; then
+        swap_usage=$(awk "BEGIN { printf \"%.2f\", ($swap_used / $swap_total) * 100 }")
+    else
+        swap_usage="0.00"
+    fi
+
+    printf "%-18s %s MB\n" "Swap Total:" "$swap_total_mb"
+    printf "%-18s %s MB\n" "Swap Used:" "$swap_used_mb"
+    printf "%-18s %s MB\n" "Swap Free:" "$swap_free_mb"
+    printf "%-18s %s%%\n" "Swap Usage:" "$swap_usage"
 }
 
 show_disk_metrics() {
