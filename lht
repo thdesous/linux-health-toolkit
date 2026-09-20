@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+readonly VERSION="0.1.0"
+
+show_banner() {
+    echo "Linux Health Toolkit"
+}
+
+show_version() {
+    echo "${VERSION}"
+}
+
+show_help() {
+    cat << EOF
+Linux Health Toolkit
+
+Usage:
+  lht [OPTIONS]
+
+Options:
+  --help       Show help
+  --version    Show version
+EOF
+}
+
+run_assessment() {
+    echo "Running health assessment..."
+}
+
+main() {
+    case "${1:-}" in
+        --help)
+            show_help
+            ;;
+        --version)
+            show_version
+            ;;
+        *)
+            show_banner
+            run_assessment
+            ;;
+    esac
+}
+
+main "$@"
