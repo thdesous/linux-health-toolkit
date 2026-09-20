@@ -149,7 +149,52 @@ show_disk_metrics() {
     printf "%-18s %s\n" "Disk Used:" "$used"
     printf "%-18s %s\n" "Disk Available:" "$available"
     printf "%-18s %s\n" "Disk Usage:" "$usage"
+}
 
+show_top_processes() {
+    echo
+    echo "PROCESSES"
+    echo "---------"
+    echo "Top CPU Processes"
+    echo "-----------------"
+
+    printf "%-8s %-6s %-10s %-8s %s\n" \
+        "PID" "CPU%" "USER" "START" "COMMAND"
+
+    ps -eo pid,%cpu,user,start,args --sort=-%cpu \
+        | head -n 6 \
+        | tail -n 5 \
+        | awk '{
+            cmd="";
+            for(i=5;i<=NF;i++) cmd=cmd $i " ";
+
+            if(length(cmd) > 60)
+                cmd=substr(cmd,1,60)"...";
+
+            printf "%-8s %-6s %-10s %-8s %s\n",
+                $1,$2,$3,$4,cmd
+        }'
+
+    echo
+    echo "Top Memory Processes"
+    echo "--------------------"
+
+    printf "%-8s %-6s %-10s %-8s %s\n" \
+        "PID" "MEM%" "USER" "START" "COMMAND"
+
+    ps -eo pid,%mem,user,start,args --sort=-%mem \
+        | head -n 6 \
+        | tail -n 5 \
+        | awk '{
+            cmd="";
+            for(i=5;i<=NF;i++) cmd=cmd $i " ";
+
+            if(length(cmd) > 60)
+                cmd=substr(cmd,1,60)"...";
+
+            printf "%-8s %-6s %-10s %-8s %s\n",
+                $1,$2,$3,$4,cmd
+        }'
 }
 
 run_assessment() {
@@ -157,6 +202,7 @@ run_assessment() {
     show_cpu_metrics
     show_memory_metrics
     show_disk_metrics
+    show_top_processes
 }
 
 main() {
