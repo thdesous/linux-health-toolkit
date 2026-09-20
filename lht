@@ -123,10 +123,40 @@ show_memory_metrics() {
     printf "%-18s %s%%\n" "Memory Usage:" "$mem_usage"
 }
 
+show_disk_metrics() {
+    echo
+    echo "Disk Metrics"
+    echo "------------"
+
+    local disk_info
+
+    disk_info=$(df -h / | awk 'NR==2')
+
+    local filesystem
+    local total
+    local used
+    local available
+    local usage
+
+    filesystem=$(echo "$disk_info" | awk '{print $1}')
+    total=$(echo "$disk_info" | awk '{print $2}')
+    used=$(echo "$disk_info" | awk '{print $3}')
+    available=$(echo "$disk_info" | awk '{print $4}')
+    usage=$(echo "$disk_info" | awk '{print $5}')
+
+    printf "%-18s %s\n" "Filesystem:" "$filesystem"
+    printf "%-18s %s\n" "Disk Total:" "$total"
+    printf "%-18s %s\n" "Disk Used:" "$used"
+    printf "%-18s %s\n" "Disk Available:" "$available"
+    printf "%-18s %s\n" "Disk Usage:" "$usage"
+
+}
+
 run_assessment() {
     show_system_info
     show_cpu_metrics
     show_memory_metrics
+    show_disk_metrics
 }
 
 main() {
