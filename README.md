@@ -6,17 +6,9 @@ Linux operational diagnostics and health assessment toolkit.
 
 Linux Health Toolkit (LHT) is a lightweight Bash-based utility designed to collect and analyze essential Linux system health metrics.
 
-The project focuses on providing quick operational visibility into a Linux system using standard operating system tools and minimal external dependencies.
+The project provides quick operational visibility into Linux hosts using native operating system tools and minimal external dependencies.
 
 ## Features
-
-### Core Metrics
-
-- CPU utilization
-- Memory utilization
-- Disk utilization
-- Top CPU-consuming processes
-- Top memory-consuming processes
 
 ### System Information
 
@@ -24,14 +16,38 @@ The project focuses on providing quick operational visibility into a Linux syste
 - Operating System
 - Kernel Version
 - Uptime
-- Load Average
+- IP Address
+- MAC Address
+- Default Gateway
 
-### Operational Insights
+### System Metrics
 
-- Logged-in users
-- Swap usage
-- Process overview
-- Basic system health assessment
+- CPU utilization
+- CPU core count
+- Load average
+- Memory utilization
+- Swap utilization
+- Disk utilization
+- Mounted filesystems
+
+### Processes
+
+- Top CPU-consuming processes
+- Top memory-consuming processes
+
+### Network Information
+
+- Primary network interface
+- Listening ports
+
+### System Services
+
+- Failed services overview
+
+### Report Information
+
+- Toolkit version
+- Report generation timestamp
 
 ## Requirements
 
@@ -40,6 +56,8 @@ The project focuses on providing quick operational visibility into a Linux syste
 - Standard GNU/Linux utilities
 
 ## Installation
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/<username>/linux-health-toolkit.git
@@ -51,19 +69,44 @@ chmod +x lht
 
 ## Usage
 
+Run a full system assessment:
+
 ```bash
 ./lht
 ```
 
-## Project Status
+Show the current version:
 
-🚧 Under development
+```bash
+./lht --version
+```
 
-Current focus:
+Show help:
 
-- Core system metrics
-- Performance diagnostics
-- Health assessment capabilities
+```bash
+./lht --help
+```
+
+## Sample Report Sections
+
+The toolkit generates information grouped into the following sections:
+
+- Report Information
+- System Information
+- System Metrics
+  - CPU Metrics
+  - Memory Metrics
+  - Swap Metrics
+  - Disk Metrics
+- System Processes
+- Network Information
+- System Services
+
+## Status
+
+Active development.
+
+Current version: **1.0.0**
 
 ## License
 
