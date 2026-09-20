@@ -294,6 +294,27 @@ show_network_info() {
         | uniq
 }
 
+show_system_services() {
+    echo
+    echo "# SYSTEM SERVICES"
+    echo "-----------------"
+
+    local failed_services
+
+    failed_services=$(systemctl --failed --no-legend 2>/dev/null | wc -l)
+
+    printf "%-22s %s\n" "Failed Services:" "$failed_services"
+
+    if [ "$failed_services" -gt 0 ]; then
+        echo
+        echo "Failed Service List"
+        echo "----------------------------------------"
+
+        systemctl --failed --no-legend 2>/dev/null \
+            | awk '{print $1}'
+    fi
+}
+
 run_assessment() {
     show_system_info
     show_cpu_metrics
@@ -301,6 +322,7 @@ run_assessment() {
     show_disk_metrics
     show_top_processes
     show_network_info
+    show_system_services
 }
 
 main() {
