@@ -24,7 +24,19 @@ Options:
 EOF
 }
 
+show_report_info() {
+    echo "# REPORT INFORMATION"
+    echo "--------------------"
+
+    local generated_at
+    generated_at=$(date "+%Y-%m-%d %H:%M:%S")
+
+    printf "%-20s %s\n" "Toolkit Version:" "$VERSION"
+    printf "%-20s %s\n" "Generated At:" "$generated_at"
+}
+
 show_system_info() {
+    echo
     echo "# SYSTEM INFORMATION"
     echo "--------------------"
 
@@ -316,6 +328,7 @@ show_system_services() {
 }
 
 run_assessment() {
+    show_report_info
     show_system_info
     show_cpu_metrics
     show_memory_metrics
