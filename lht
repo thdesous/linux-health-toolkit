@@ -25,8 +25,8 @@ EOF
 }
 
 show_system_info() {
-    echo "System Information"
-    echo "------------------"
+    echo "# SYSTEM INFORMATION"
+    echo "--------------------"
 
     local hostname
     hostname=$(hostname)
@@ -48,6 +48,8 @@ show_system_info() {
 
 show_cpu_metrics() {
     echo
+    echo "# SYSTEM METRICS"
+    echo "----------------"
     echo "CPU Metrics"
     echo "-----------"
 
@@ -153,8 +155,8 @@ show_disk_metrics() {
 
 show_top_processes() {
     echo
-    echo "PROCESSES"
-    echo "---------"
+    echo "# SYSTEM PROCESSES"
+    echo "------------------"
     echo "Top CPU Processes"
     echo "-----------------"
 
