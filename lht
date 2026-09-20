@@ -3,7 +3,9 @@
 readonly VERSION="0.1.0"
 
 show_banner() {
-    echo "Linux Health Toolkit"
+    echo
+    echo "Linux Health Toolkit v${VERSION}"
+    echo "----------------------------------------"
     echo
 }
 
@@ -25,8 +27,8 @@ EOF
 }
 
 show_report_info() {
-    echo "# REPORT INFORMATION"
-    echo "--------------------"
+    echo "REPORT INFORMATION"
+    echo "----------------------------------------"
 
     local generated_at
     generated_at=$(date "+%Y-%m-%d %H:%M:%S")
@@ -37,8 +39,8 @@ show_report_info() {
 
 show_system_info() {
     echo
-    echo "# SYSTEM INFORMATION"
-    echo "--------------------"
+    echo "SYSTEM INFORMATION"
+    echo "----------------------------------------"
 
     local hostname
     hostname=$(hostname)
@@ -77,10 +79,8 @@ show_system_info() {
 
 show_cpu_metrics() {
     echo
-    echo "# SYSTEM METRICS"
-    echo "----------------"
     echo "CPU Metrics"
-    echo "-----------"
+    echo "----------------------------------------"
 
     local cpu_line_1
     local cpu_line_2
@@ -125,7 +125,7 @@ show_cpu_metrics() {
 show_memory_metrics() {
     echo
     echo "Memory Metrics"
-    echo "--------------"
+    echo "----------------------------------------"
 
     local mem_total
     local mem_available
@@ -155,7 +155,7 @@ show_memory_metrics() {
 
     echo
     echo "Swap Metrics"
-    echo "--------------"
+    echo "----------------------------------------"
 
     local swap_total
     local swap_free
@@ -190,7 +190,7 @@ show_memory_metrics() {
 show_disk_metrics() {
     echo
     echo "Disk Metrics"
-    echo "------------"
+    echo "----------------------------------------"
 
     local disk_info
 
@@ -216,7 +216,7 @@ show_disk_metrics() {
 
     echo
     echo "Mounted Filesystems"
-    echo "-------------------"
+    echo "----------------------------------------"
 
     df -h --output=source,size,used,avail,pcent,target \
     | grep -E '^Filesystem|^/dev/|^[A-Z]:\\'
@@ -224,10 +224,10 @@ show_disk_metrics() {
 
 show_top_processes() {
     echo
-    echo "# SYSTEM PROCESSES"
-    echo "------------------"
+    echo "SYSTEM PROCESSES"
+    echo "----------------------------------------"
     echo "Top CPU Processes"
-    echo "-----------------"
+    echo "----------------------------------------"
 
     printf "%-8s %-6s %-10s %-8s %s\n" \
         "PID" "CPU%" "USER" "START" "COMMAND"
@@ -248,7 +248,7 @@ show_top_processes() {
 
     echo
     echo "Top Memory Processes"
-    echo "--------------------"
+    echo "----------------------------------------"
 
     printf "%-8s %-6s %-10s %-8s %s\n" \
         "PID" "MEM%" "USER" "START" "COMMAND"
@@ -270,8 +270,8 @@ show_top_processes() {
 
 show_network_info() {
     echo
-    echo "# NETWORK INFORMATION"
-    echo "---------------------"
+    echo "NETWORK INFORMATION"
+    echo "----------------------------------------"
 
     local interface
     local ip_address
@@ -308,8 +308,8 @@ show_network_info() {
 
 show_system_services() {
     echo
-    echo "# SYSTEM SERVICES"
-    echo "-----------------"
+    echo "SYSTEM SERVICES"
+    echo "----------------------------------------"
 
     local failed_services
 
@@ -325,11 +325,15 @@ show_system_services() {
         systemctl --failed --no-legend 2>/dev/null \
             | awk '{print $1}'
     fi
+    echo
 }
 
 run_assessment() {
     show_report_info
     show_system_info
+    echo
+    echo "SYSTEM METRICS"
+    echo "----------------------------------------"
     show_cpu_metrics
     show_memory_metrics
     show_disk_metrics
