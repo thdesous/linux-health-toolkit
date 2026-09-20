@@ -40,10 +40,27 @@ show_system_info() {
     local os
     os=$(grep "^PRETTY_NAME=" /etc/os-release | cut -d '"' -f2)
 
-    printf "%-12s %s\n" "Hostname:" "$hostname"
-    printf "%-12s %s\n" "OS:" "$os"
-    printf "%-12s %s\n" "Kernel:" "$kernel"
-    printf "%-12s %s\n" "Uptime:" "$uptime"
+    local interface
+    interface=$(ip route | awk '/default/ {print $5; exit}')
+
+    local ip_address
+    ip_address=$(ip -4 addr show "$interface" \
+        | awk '/inet / {print $2}' \
+        | cut -d/ -f1)
+
+    local mac_address
+    mac_address=$(cat "/sys/class/net/$interface/address")
+
+    local gateway
+    gateway=$(ip route | awk '/default/ {print $3; exit}')
+
+    printf "%-18s %s\n" "Hostname:" "$hostname"
+    printf "%-18s %s\n" "OS:" "$os"
+    printf "%-18s %s\n" "Kernel:" "$kernel"
+    printf "%-18s %s\n" "Uptime:" "$uptime"
+    printf "%-18s %s\n" "IP Address:" "$ip_address"
+    printf "%-18s %s\n" "MAC Address:" "$mac_address"
+    printf "%-18s %s\n" "Default Gateway:" "$gateway"
 }
 
 show_cpu_metrics() {
