@@ -219,7 +219,7 @@ show_disk_metrics() {
     echo "----------------------------------------"
 
     df -h --output=source,size,used,avail,pcent,target \
-    | grep -E '^Filesystem|^/dev/|^[A-Z]:\\'
+    | grep -E '^(Filesystem|/dev/|[A-Z]:\\)'   
 }
 
 show_top_processes() {
