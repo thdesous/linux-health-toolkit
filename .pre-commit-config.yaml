@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: lht-lint
+        name: Linux Health Toolkit Lint
+        entry: ./scripts/lint.sh
+        language: system
+        pass_filenames: false
