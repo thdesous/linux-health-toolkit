@@ -18,16 +18,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Validate Bash syntax
-        run: bash -n lht
+      - name: Make scripts executable
+        run: chmod +x scripts/lint.sh
 
-      - name: Install ShellCheck
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y shellcheck
-
-      - name: Run ShellCheck
-        run: shellcheck lht
+      - name: Run lint checks
+        run: ./scripts/lint.sh
 
   smoke-test:
     name: Smoke Test
@@ -39,14 +34,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Make script executable
-        run: chmod +x lht
+      - name: Make scripts executable
+        run: |
+          chmod +x lht
+          chmod +x scripts/smoke-test.sh
 
-      - name: Test help command
-        run: ./lht --help
-
-      - name: Test version command
-        run: ./lht --version
-
-      - name: Run full assessment
-        run: ./lht
+      - name: Run smoke tests
+        run: ./scripts/smoke-test.sh
