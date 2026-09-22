@@ -10,6 +10,11 @@ The project provides quick operational visibility into Linux hosts using native 
 
 ## Features
 
+### Report Information
+
+- Toolkit version
+- Report generation timestamp
+
 ### System Information
 
 - Hostname
@@ -22,15 +27,23 @@ The project provides quick operational visibility into Linux hosts using native 
 
 ### System Metrics
 
+#### CPU Metrics
+
 - CPU utilization
 - CPU core count
 - Load average
+
+#### Memory Metrics
+
 - Memory utilization
 - Swap utilization
-- Disk utilization
-- Mounted filesystems
 
-### Processes
+#### Disk Metrics
+
+- Disk utilization
+- Mounted filesystems overview
+
+### System Processes
 
 - Top CPU-consuming processes
 - Top memory-consuming processes
@@ -43,11 +56,6 @@ The project provides quick operational visibility into Linux hosts using native 
 ### System Services
 
 - Failed services overview
-
-### Report Information
-
-- Toolkit version
-- Report generation timestamp
 
 ## Requirements
 
@@ -75,7 +83,7 @@ Run a full system assessment:
 ./lht
 ```
 
-Show the current version:
+Show version information:
 
 ```bash
 ./lht --version
@@ -87,26 +95,58 @@ Show help:
 ./lht --help
 ```
 
-## Sample Report Sections
+## Development
 
-The toolkit generates information grouped into the following sections:
+Run lint checks:
 
-- Report Information
-- System Information
-- System Metrics
-  - CPU Metrics
-  - Memory Metrics
-  - Swap Metrics
-  - Disk Metrics
-- System Processes
-- Network Information
-- System Services
+```bash
+./scripts/lint.sh
+```
+
+Run smoke tests:
+
+```bash
+./scripts/smoke-test.sh
+```
+
+Execute all pre-commit checks:
+
+```bash
+pre-commit run --all-files
+```
+
+## Continuous Integration
+
+The project includes:
+
+- GitHub Actions
+- Bash syntax validation
+- ShellCheck validation
+- Smoke tests
+- Pre-commit integration
+
+## Project Structure
+
+```text
+linux-health-toolkit/
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
+├── scripts/
+│   ├── lint.sh
+│   └── smoke-test.sh
+│
+├── lht
+├── README.md
+├── LICENSE
+└── .pre-commit-config.yaml
+```
 
 ## Status
 
-Active development.
-
-Current version: **1.0.0**
+Current Version: **1.0.0**
 
 ## License
 
