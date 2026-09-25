@@ -23,6 +23,8 @@ jobs:
           chmod +x scripts/lint.sh
           chmod +x scripts/smoke-test.sh
           chmod +x scripts/release-check.sh
+          chmod +x scripts/release-notes-check.sh
+          chmod +x scripts/changelog-check.sh
 
       - name: Run lint checks
         run: ./scripts/lint.sh
@@ -30,8 +32,11 @@ jobs:
       - name: Run smoke tests
         run: ./scripts/smoke-test.sh
 
-      - name: Validate version
-        run: ./scripts/release-check.sh "${GITHUB_REF_NAME}"
+      - name: Validate release notes
+        run: ./scripts/release-notes-check.sh "${GITHUB_REF_NAME}"
+
+      - name: Validate changelog
+        run: ./scripts/changelog-check.sh "${GITHUB_REF_NAME}"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
