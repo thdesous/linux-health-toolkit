@@ -1,4 +1,4 @@
-name: CI
+name: CI / Validation
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: CI / Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,7 @@ jobs:
         run: ./scripts/lint.sh
 
   smoke-test:
-    name: Smoke Test
+    name: CI / Smoke Test
     runs-on: ubuntu-latest
 
     needs: lint
@@ -41,3 +41,15 @@ jobs:
 
       - name: Run smoke tests
         run: ./scripts/smoke-test.sh
+
+  ci-gate:
+    name: CI / Required Gate
+    runs-on: ubuntu-latest
+
+    needs:
+      - lint
+      - smoke-test
+
+    steps:
+      - name: Confirm required checks
+        run: echo "All required CI checks passed."
