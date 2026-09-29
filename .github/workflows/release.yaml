@@ -30,6 +30,9 @@ jobs:
       - name: Run smoke tests
         run: ./scripts/smoke-test.sh
 
+      - name: Run release check
+        run: ./scripts/release-check.sh
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
